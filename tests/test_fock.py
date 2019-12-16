@@ -443,7 +443,7 @@ class TestCov:
             dev.post_apply()
             dev.pre_measure()
 
-            print(dev.cov('NumberOperator', [1], [], 'NumberOperator', [0], []))
+            print(dev.cov('NumberOperator', [1], [], 'NumberOperator', [2], []))
 
             raise Exception()
 

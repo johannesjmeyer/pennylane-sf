@@ -157,15 +157,15 @@ class StrawberryFieldsSimulator(Device):
         wires = sorted([wires1[0], wires2[0]])
 
         photon_numbers = np.moveaxis(photon_numbers, wires[0], 0)
-        photon_numbers = np.moveaxis(photon_numbers, wires[0], 1)
+        photon_numbers = np.moveaxis(photon_numbers, wires[1], 1)
         for i in range(data.shape[wires1[0]]):
             for j in range(data.shape[wires2[0]]):
                 photon_numbers[i, j, ...] = i * j
 
-        photon_numbers = np.moveaxis(photon_numbers, 1, wires[0])
+        photon_numbers = np.moveaxis(photon_numbers, 1, wires[1])
         photon_numbers = np.moveaxis(photon_numbers, 0, wires[0])
 
-        print("wires = ", wires1, ",", wires2)
+        print("wires = ", wires)
         for i in range(photon_numbers.shape[0]):
             for j in range(photon_numbers.shape[1]):
                 for k in range(photon_numbers.shape[2]):
