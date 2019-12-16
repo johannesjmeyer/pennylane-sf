@@ -165,11 +165,11 @@ class StrawberryFieldsSimulator(Device):
         photon_numbers = np.moveaxis(photon_numbers, 1, wires[1])
         photon_numbers = np.moveaxis(photon_numbers, 0, wires[0])
 
-        print("wires = ", wires)
-        for i in range(photon_numbers.shape[0]):
-            for j in range(photon_numbers.shape[1]):
-                for k in range(photon_numbers.shape[2]):
-                    print("photon_numbers[{0}, {1}, {2}] = {3}".format(i, j, k, photon_numbers[i, j, k]))
+        # print("wires = ", wires)
+        # for i in range(photon_numbers.shape[0]):
+        #     for j in range(photon_numbers.shape[1]):
+        #         for k in range(photon_numbers.shape[2]):
+        #             print("photon_numbers[{0}, {1}, {2}] = {3}".format(i, j, k, photon_numbers[i, j, k]))
         
         ev12 = np.abs(np.sum(photon_numbers * np.abs(data)**2))
         return ev12 - ev1 * ev2
