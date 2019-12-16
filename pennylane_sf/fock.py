@@ -109,3 +109,4 @@ class StrawberryFieldsFock(StrawberryFieldsSimulator):
 
         self.state = results.state
         self.samples = results.samples
+        

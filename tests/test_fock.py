@@ -421,3 +421,29 @@ class TestVariance:
         gradF = circuit.jacobian([n, a], method='F')
         expected = np.array([2*a**2+2*n+1, 2*a*(2*n+1)])
         assert np.allclose(gradF, expected, atol=tol, rtol=0)
+
+class TestCov:
+
+    def test_cov_simple(self):
+        dev = qml.device('strawberryfields.fock', wires=3, cutoff_dim=4)
+
+        with dev.execution_context():
+            dev.pre_apply()
+
+            #dev.apply('FockStateVector', wires=[0, 1, 2], par=[np.array([1, 1, 1])])
+            #dev.apply('FockStateVector', wires=[0, 1, 2], par=[np.array([3, 0, 1])])
+            dev.apply('Displacement', wires=[0], par=[2, 0])
+            dev.apply('Rotation', wires=[0], par=[2])
+            dev.apply('Beamsplitter', wires=[0, 2], par=[.5, 0])
+            dev.apply('Rotation', wires=[1], par=[-2])
+            dev.apply('Beamsplitter', wires=[1, 2], par=[.5, 0])
+            dev.apply('Rotation', wires=[2], par=[0.3])
+            dev.apply('Beamsplitter', wires=[1, 0], par=[.2, 0])
+
+            dev.post_apply()
+            dev.pre_measure()
+
+            print(dev.cov('NumberOperator', [1], [], 'NumberOperator', [0], []))
+
+            raise Exception()
+
