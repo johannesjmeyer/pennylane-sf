@@ -154,19 +154,21 @@ class StrawberryFieldsSimulator(Device):
         data = self.state.ket()
 
         photon_numbers = np.zeros_like(data, dtype=int)
-        photon_numbers = np.moveaxis(photon_numbers, wires1[0], 0)
-        photon_numbers = np.moveaxis(photon_numbers, wires2[0], 1)
+        wires = sorted([wires1[0], wires2[0]])
+
+        photon_numbers = np.moveaxis(photon_numbers, wires[0], 0)
+        photon_numbers = np.moveaxis(photon_numbers, wires[0], 1)
         for i in range(data.shape[wires1[0]]):
             for j in range(data.shape[wires2[0]]):
                 photon_numbers[i, j, ...] = i * j
 
-        photon_numbers = np.moveaxis(photon_numbers, 1, wires2[0])
-        photon_numbers = np.moveaxis(photon_numbers, 0, wires1[0])
+        photon_numbers = np.moveaxis(photon_numbers, 1, wires[0])
+        photon_numbers = np.moveaxis(photon_numbers, 0, wires[0])
 
         print("wires = ", wires1, ",", wires2)
         for i in range(photon_numbers.shape[0]):
-            for j in range(photon_numbers.shape[0]):
-                for k in range(photon_numbers.shape[0]):
+            for j in range(photon_numbers.shape[1]):
+                for k in range(photon_numbers.shape[2]):
                     print("photon_numbers[{0}, {1}, {2}] = {3}".format(i, j, k, photon_numbers[i, j, k]))
         
         ev12 = np.abs(np.sum(photon_numbers * np.abs(data)**2))
