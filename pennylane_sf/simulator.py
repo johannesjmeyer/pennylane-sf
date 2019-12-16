@@ -148,21 +148,20 @@ class StrawberryFieldsSimulator(Device):
         if observable1 != "NumberOperator" or observable2 != "NumberOperator":
             raise Exception("Only NumberOperator supported so far.")
         
-        ev12 = 0
         ev1 = self.expval(observable1, wires1, par1)
         ev2 = self.expval(observable2, wires2, par2)
 
         data = self.state.ket()
 
         photon_numbers = np.zeros_like(data, dtype=int)
-        photon_numbers = np.swapaxes(photon_numbers, 0, wires1[0])
-        photon_numbers = np.swapaxes(photon_numbers, 1, wires2[0])
+        photon_numbers = np.moveaxis(photon_numbers, wires1[0], 0)
+        photon_numbers = np.moveaxis(photon_numbers, wires2[0], 1)
         for i in range(data.shape[wires1[0]]):
             for j in range(data.shape[wires2[0]]):
                 photon_numbers[i, j, ...] = i * j
 
-        photon_numbers = np.swapaxes(photon_numbers, 0, wires1[0])
-        photon_numbers = np.swapaxes(photon_numbers, 1, wires2[0])
+        photon_numbers = np.moveaxis(photon_numbers, 1, wires2[0])
+        photon_numbers = np.moveaxis(photon_numbers, 0, wires1[0])
 
         print("wires = ", wires1, ",", wires2)
         for i in range(photon_numbers.shape[0]):
@@ -170,7 +169,8 @@ class StrawberryFieldsSimulator(Device):
                 for k in range(photon_numbers.shape[0]):
                     print("photon_numbers[{0}, {1}, {2}] = {3}".format(i, j, k, photon_numbers[i, j, k]))
         
-        return np.abs(np.sum(photon_numbers * np.abs(data)**2)) - ev1 * ev2
+        ev12 = np.abs(np.sum(photon_numbers * np.abs(data)**2))
+        return ev12 - ev1 * ev2
 
     def reset(self):
         """Reset the device"""
