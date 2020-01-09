@@ -147,7 +147,7 @@ class StrawberryFieldsSimulator(Device):
     def cov(self, observable1, wires1, par1, observable2, wires2, par2):
         if observable1 != "NumberOperator" or observable2 != "NumberOperator":
             raise Exception("Only NumberOperator supported so far.")
-        
+
         ev1 = self.expval(observable1, wires1, par1)
         ev2 = self.expval(observable2, wires2, par2)
 
@@ -171,7 +171,7 @@ class StrawberryFieldsSimulator(Device):
         #         for k in range(photon_numbers.shape[2]):
         #             print("photon_numbers[{0}, {1}, {2}] = {3}".format(i, j, k, photon_numbers[i, j, k]))
         
-        ev12 = np.abs(np.sum(photon_numbers * np.abs(data)**2))
+        ev12 = np.abs(np.sum(photon_numbers * data**2))
         return ev12 - ev1 * ev2
 
     def reset(self):
