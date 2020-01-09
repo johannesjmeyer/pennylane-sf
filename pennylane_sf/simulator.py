@@ -171,7 +171,7 @@ class StrawberryFieldsSimulator(Device):
         #         for k in range(photon_numbers.shape[2]):
         #             print("photon_numbers[{0}, {1}, {2}] = {3}".format(i, j, k, photon_numbers[i, j, k]))
         
-        ev12 = np.abs(np.sum(photon_numbers * data**2))
+        ev12 = np.abs(np.sum(photon_numbers * data))
         return ev12 - ev1 * ev2
 
     def reset(self):
