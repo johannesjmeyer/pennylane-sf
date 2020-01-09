@@ -432,6 +432,7 @@ class TestCov:
 
             #dev.apply('FockStateVector', wires=[0, 1, 2], par=[np.array([1, 1, 1])])
             #dev.apply('FockStateVector', wires=[0, 1, 2], par=[np.array([3, 0, 1])])
+            dev.apply('FockState', wires=[0], par=[3])
             dev.apply('Displacement', wires=[0], par=[2, 0])
             dev.apply('Rotation', wires=[0], par=[2])
             dev.apply('Beamsplitter', wires=[0, 2], par=[.5, 0])

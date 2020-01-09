@@ -151,7 +151,7 @@ class StrawberryFieldsSimulator(Device):
         ev1 = self.expval(observable1, wires1, par1)
         ev2 = self.expval(observable2, wires2, par2)
 
-        data = self.state.ket()
+        data = self.state.all_fock_probs()
 
         photon_numbers = np.zeros_like(data, dtype=int)
         wires = sorted([wires1[0], wires2[0]])
